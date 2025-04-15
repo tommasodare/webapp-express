@@ -45,12 +45,12 @@ app.get('/api/v1/movies/:id', (req, res) => {
     // Recuperiamo l'id dall'URL
     const id = req.params.id
 
-    const sql = 'SELECT * FROM movies WHERE id = ?'
+    const sql = 'SELECT * FROM reviews JOIN movies ON reviews.movie_id = movies.id WHERE movie_id = ?'
 
     // Eseguiamo la query
     connection.query(sql, [id], (err, results) => {
         if (err) return res.status(500).json({ error: 'Database query failed' });
         if (results.length === 0) return res.status(404).json({ error: 'Post not found' });
-        res.json(results[0]);
+        res.json(results);
     });
 })
