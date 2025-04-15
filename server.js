@@ -45,7 +45,10 @@ app.get('/api/v1/movies/:id', (req, res) => {
     // Recuperiamo l'id dall'URL
     const id = req.params.id
 
-    const sql = 'SELECT * FROM reviews JOIN movies ON reviews.movie_id = movies.id WHERE movie_id = ?'
+    const sql = `SELECT movie_id, title, director, genre, release_year, abstract, image, movies.created_at AS movie_created, movies.updated_at AS movie_updates, reviews.id AS review_id, name, vote, text, reviews.created_at AS review_created, reviews.updated_at AS review_updated
+    FROM reviews
+    JOIN movies ON reviews.movie_id = movies.id
+    WHERE movie_id = ?`
 
     // Eseguiamo la query
     connection.query(sql, [id], (err, results) => {
