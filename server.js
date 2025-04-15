@@ -3,6 +3,8 @@ const app = express();
 const cors = require('cors');
 const PORT = process.env.PORT || 3000;
 const MoviesRouter = require('./routers/movies.js');
+const errorHandler = require('./middlewares/serverError')
+const routeNotFound = require('./middlewares/routeNotFound')
 
 // Middleware
 app.use(cors(
@@ -27,3 +29,10 @@ app.listen(PORT, () => {
 
 // Use the movies router
 app.use('/api/v1/movies', MoviesRouter)
+
+
+// Registro il middleware per la gestione errori
+app.use(errorHandler)
+
+// Registro il middleware per rotta inesistente
+app.use(routeNotFound)
