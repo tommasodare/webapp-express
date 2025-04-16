@@ -9,13 +9,16 @@ const routeNotFound = require('./middlewares/routeNotFound')
 // Middleware
 app.use(cors(
     {
-        origin: process.env.FRONT_URL || 'http://localhost:5173',
+        origin: process.env.FRONT_URL || 'http://localhost:5174',
     }
 ));
 
 
 // Middleware per parsing JSON
 app.use(express.json());
+
+// static assets middleware
+app.use(express.static('public'));
 
 // Rotta base
 app.get('/', (req, res) => {
